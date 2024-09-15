@@ -18,10 +18,10 @@ jobs:
         # Specify the repository you want to clone
         name: Clone a public repository
         run: |
-        git clone https://gitlab.com/cloud-devops-assignments/spring-boot-react-example.git
-        cd spring-boot-react-example
-        # Perform actions on the cloned repo
-        echo "Cloned public repo successfully!"
+          git clone https://gitlab.com/cloud-devops-assignments/spring-boot-react-example.git
+          cd spring-boot-react-example
+          # Perform actions on the cloned repo
+          echo "Cloned public repo successfully!"
 
 
       - name: Set up JDK 11
