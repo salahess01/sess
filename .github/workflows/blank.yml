@@ -16,7 +16,6 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
         # Specify the repository you want to clone
-        name: Clone a public repository
         run: |
           git clone https://gitlab.com/cloud-devops-assignments/spring-boot-react-example.git
           cd spring-boot-react-example
