@@ -17,7 +17,8 @@ jobs:
         run: |
           git clone https://gitlab.com/cloud-devops-assignments/spring-boot-react-example.git
           cd spring-boot-react-example
-          echo "Cloned public repo successfully!"
+          echo "Clonedd public repo successfully!"
+          mvn wrapper:wrapper
       - name: Clone external repository
         run: |
           mvn wrapper:wrapper        
