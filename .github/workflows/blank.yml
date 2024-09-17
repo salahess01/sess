@@ -36,7 +36,6 @@ jobs:
 
       - name: Run unit tests
         run: |
-          cd spring-boot-react-example
           ./mvnw test
 
   dockerize:
