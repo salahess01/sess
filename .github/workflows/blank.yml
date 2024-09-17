@@ -19,7 +19,7 @@ jobs:
           cd spring-boot-react-example
           echo "Clonedd public repo successfully!"
           mvn wrapper:wrapper
-      - name: Clone external repository
+      - name: Cloneeeeed external repository
         run: |
           mvn wrapper:wrapper        
       - name: Set up JDK 11
