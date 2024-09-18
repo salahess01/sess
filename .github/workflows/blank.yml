@@ -50,7 +50,7 @@ jobs:
         run: git clone https://gitlab.com/cloud-devops-assignments/spring-boot-react-example.git
 
       - name: Build Docker image
-        run: docker build -t salahess01/ess123/spring-backend:${{ github.sha }} spring-boot-react-example
+        run: docker build -t ${{ secrets.DOCKER_REGISTRY}}/spring-backend:${{ github.sha }} spring-boot-react-example
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD}}" | docker login -u "${{ secrets.DOCKER_USERNAME}}" --password-stdin
