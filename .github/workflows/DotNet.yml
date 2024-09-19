@@ -1,0 +1,54 @@
+name: .NET Core CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build the app
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run unit tests
+        run: dotnet test --no-build --verbosity normal
+
+  dockerize:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_REGISTRY }}/dotnet-app:${{ github.sha }} .
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_REGISTRY }}/dotnet-app:${{ github.sha }}
+
+  deploy:
+    needs: dockerize
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/deployment-dotnet.yaml
